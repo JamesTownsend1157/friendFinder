@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Friend Finder</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Friend Finder</h1>
+      <h3>The greatest app for finding true friendship</h3>
+      <hr>
+      <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> View Characters</button></a>
+    </div>
+    <div class="row">
+
+      <div class="col-lg-12">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Add Profile</strong></h3>
+          </div>
+          <div class="panel-body">
+            <form method="POST" role="form">
+
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name">
+              </div>
+
+              <div class="form-group">
+                <label for="role">Profession</label>
+                <input type="text" class="form-control" id="role">
+              </div>
+
+              <div class="form-group">
+                <label for="age">Age</label>
+                <input type="text" class="form-control" id="age">
+              </div>
+
+              <div class="form-group">
+                <label for="pitcure">Link to Picture</label>
+                <input type="text" class="form-control" id="pitcure">
+              </div>
+
+              <div class="form-group" id ="q1">
+                <label for="questionOne">What is your perfect day?</label>
+                <label class="checkbox-inline"></label>
+                <input type="checkbox" value= 1> Read a book
+                </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" value= 2>Go on a hike
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" value= 3>Dance at the Club
+                </label>
+              </div>
+
+              <div class="form-group" id = "q2">
+                  <label for="questionTwo">Where is your happy place?</label>
+                  <label class="checkbox-inline"></label>
+                  <input type="checkbox" value= 1>On the couch with netflix
+                  </label>
+                  <label class="checkbox-inline">
+                  <input type="checkbox" value= 2>At the dog park
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" value= 3> In a crowd of people
+                  </label>
+                </div>
+
+                <div class="form-group" id = "q3">
+                    <label for="questionThree">Who do you most admire?</label>
+                    <label class="checkbox-inline"></label>
+                    <input type="checkbox" value= 1>My mom
+                    </label>
+                    <label class="checkbox-inline">
+                    <input type="checkbox" value= 2>A political activist
+                    </label>
+                    <label class="checkbox-inline">
+                      <input type="checkbox" value= 3>An Hollywood socialight
+                    </label>
+                  </div>
+
+                  <div class="form-group" id = "q4">
+                      <label for="questionFour">Where would you like to Travel?</label>
+                      <label class="checkbox-inline"></label>
+                      <input type="checkbox" value= 1>Washington DC
+                      </label>
+                      <label class="checkbox-inline">
+                      <input type="checkbox" value= 2>New York
+                      </label>
+                      <label class="checkbox-inline">
+                        <input type="checkbox" value= 3>Las Vegas
+                      </label>
+                    </div>
+
+                    <div class="form-group" id = "q5">
+                        <label for="questionFive">Ideal Pet?</label>
+                        <label class="checkbox-inline"></label>
+                        <input type="checkbox" value= 1>Cat
+                        </label>
+                        <label class="checkbox-inline">
+                        <input type="checkbox" value= 2>Yellow Lab
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" value= 3>Rottweiler
+                        </label>
+                      </div>
+            </form>
+            <br>
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="fa fa-fire"></span> Who is my Match?</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // Question: What does this code do?
+    $("#add-btn").on("click", function(event) {
+      event.preventDefault();
+      // Calculate score
+      scoreCalc = $('#q1').val();
+      console.log(scoreCalc);
+
+
+      var newCharacter = {
+        name: $("#name").val().trim(),
+        role: $("#role").val().trim(),
+        age: $("#age").val().trim(),
+        picture: $("#pitcure").val().trim(),
+        score: scoreCalc,
+      };
+
+      // Question: What does this code do??
+      $.post("/api/characters", newCharacter)
+        .then(function(data) {
+          console.log("add.html", data);
+          alert("Adding character...");
+        });
+
+      console.log(newCharacter.score);
+    });
+  </script>
+
+</body>
+</html>
